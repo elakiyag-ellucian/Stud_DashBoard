@@ -5,7 +5,12 @@
     width: 100;
     height: 100;
 }
-
+body{
+    background-image: url("Login_bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
 .Login_container{
     display: flex;
     justify-content: center; 
@@ -16,21 +21,23 @@
     gap: 5%;
     border-radius: 4%;
     padding:2%;
-    box-shadow: 0px 0px 20px purple;
+    box-shadow: 0px 0px 20px rgb(229, 128, 229);
+    background-color: white;
 }
 .Login_form{
     margin: 10%;
+    font-size: 100%;
 }
 .Login_btn{
     margin-left: 30%;
     margin-top: 10%;
     width: 80%;
     border: none;
-    background-color: plum;
-    padding: 2%;
+    background-color: rgb(199, 92, 213);
+    padding: 3%;
     color: white;
     cursor: pointer;
-    box-shadow: 0px 0px 10px plum;
+    box-shadow: 0px 0px 0px plum;
 }
 .Login_img{
     border-radius: 50%;
@@ -42,16 +49,26 @@
     width: 150%;
     outline: none;
 }
-
+.Login_heading{
+    text-align: center;
+    padding-left:30% ;
+    color: purple;
+}
 @media (min-width:320px) and (max-width:430px) {
     .Login_container{
+        margin-left: -15%;
         transform: translate(60%,80%);
         gap: 0;
-        width: 50%;
+        width: 60%;
+        height: auto;
+    }
+    .Login_heading{
+        padding: 0;
     }
     .Login_img{
-        width: 80%;
+        width: 70%;
         height: 50%;
+        margin-left:10px;
     }
     .Login_form input{
         width: 100%;
