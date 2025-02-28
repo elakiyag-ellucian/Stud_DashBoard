@@ -53,6 +53,7 @@
     width: 50%;
     background-color: rgba(119, 1, 119, 0.973);
     box-shadow: 0 0 10px black;
+    border: 1px solid gray;
     color: white;
     cursor: pointer;
     padding: 10px 15px;
@@ -64,6 +65,9 @@
 }
 .Login_img{
     border-radius: 100px;
+}
+.Login_error{
+    color: #000000;
 }
 
 @media screen and (max-width:425px) {

@@ -6,19 +6,33 @@ import { RiLockPasswordFill } from "react-icons/ri";
 const Login = () => {
   const [name,setName]=useState('')
   const [password,setPassword]=useState('')
-  console.log(name , password)
-  const handleSubmit=(e)=>{
-    e.preventDefault()
-    axios.post("",{name,password})
-    .then(res=> console.log(res))
-    .catch(err=>console.log(err))
+  const [error,setError]=useState('')
+  const validate = () => {
+    const newError = {}
+    if(!name) {
+      newError.name = 'Username is required'
+    }
+    if (!password) {
+      newError.password = 'Password is required'
+    } else if (password.length < 8) {
+      newError.password = 'Password must be at least 8 characters'
+    }
+    return newError
   }
-  /* function noZoom(e){
-    e.preventDefault();
-  } */
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const validateError = validate()
+    setError(validateError)
+    if (Object.keys(validateError).length === 0) {
+      console.log('Form submitted successfully!', name,password)
+      /* axios.post("",{name,password})
+    .then(res=> console.log(res))
+    .catch(err=>console.log(err)) */
+    }
+  }
   return (
     <>
-    <div className='container' /* onDoubleClick={(e)=>{noZoom(e)}} */>
+    <div className='container'>
         <div className='Login_container'>
           <div className='Login_img_container'>
             <img src="ellucian.jpg" alt="" className='Login_img' />
@@ -30,10 +44,12 @@ const Login = () => {
                 <GoPersonFill />
                 <input type="text" id="name" placeholder='Username' onChange={(e)=>{setName(e.target.value)}}/>
               </div>
+              {error.name && <span className='Login_error'>{error.name}</span>}
               <div className='Login_form'>
                 <RiLockPasswordFill />
                 <input type="password" id="password" placeholder='Password' onChange={(e)=>{setPassword(e.target.value)}}/>
               </div>
+              {error.password && <span className='Login_error'>{error.password}</span>}
               <div>
                 <button className='Login_btn'>Submit</button>
               </div>
