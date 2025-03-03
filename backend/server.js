@@ -3,10 +3,11 @@ const http = require('http');
 const WebSocket = require('ws');
 const oracledb = require('oracledb');
 const cors = require('cors');
+require('dotenv').config();
 
 const dbConfig = {
-  user: process.env.DB_user,
-  password: process.env.DB_password,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
   connectString: process.env.DB_HOST,
 };
 
@@ -21,20 +22,18 @@ wss.on('connection', (ws) => {
   console.log('New client connected');
 
   ws.on('message', async (message) => {
-    const { username, password } = JSON.parse(message);
-
+    const { username, password } = JSON.parse(message); 
     try {
       let connection = await oracledb.getConnection(dbConfig);
-
+      console.log("Successfully connected to the database");
       const result = await connection.execute(
         `SELECT * FROM ADMIN_USERS WHERE USERNAME = :username AND PASSWORD = :password AND ROLE = 'ADMIN'`,
         [username, password]
       );
-
+        console.log(result);
       if (result.rows.length > 0) {
         ws.send(JSON.stringify({ success: true, message: 'Login successful' }));
       } else {
-        
         ws.send(JSON.stringify({ success: false, message: 'Invalid credentials or not an admin' }));
       }
 
@@ -50,7 +49,7 @@ wss.on('connection', (ws) => {
   });
 });
 
-
 server.listen(4000, () => {
   console.log('Server is running on ws://localhost:4000');
 });
+
