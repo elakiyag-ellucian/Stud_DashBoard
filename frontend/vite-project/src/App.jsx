@@ -15,8 +15,8 @@ function App() {
      
       <Routers>
       <Routes>
-            <Route path='/Menu' element={ <Menu/>}/>
-            <Route path='/' element={ <Login/>}/>
+            <Route path='/' element={ <Menu/>}/> {/* "/Menu" */}
+            {/* <Route path='/' element={ <Login/>}/> */}
       </Routes>
       </Routers>
       

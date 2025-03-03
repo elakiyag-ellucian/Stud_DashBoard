@@ -62,7 +62,7 @@ const Login = () => {
   }
   return (
     <>
-    <div className='container'>
+    <div className='Login_main'>
         <div className='Login_container'>
           <div className='Login_img_container'>
             <img src="ellucian.jpg" alt="" className='Login_img' />

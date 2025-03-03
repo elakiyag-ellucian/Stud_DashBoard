@@ -4,9 +4,9 @@ import { HiMenu } from "react-icons/hi";
 const Menu = () => {
   return (
     <>
-        <div className="container">
+        <div className="Menu_main">
             <header className='Menu_header'>
-                <HiMenu />
+                <nav className='bg-red-500 absolute m-5 p-4'>Hi</nav>
             </header>
         </div>
     </>
