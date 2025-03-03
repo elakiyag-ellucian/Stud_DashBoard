@@ -72,7 +72,7 @@ const Login = () => {
               <h1 className='Login_heading'>Login</h1>
               <div className='Login_form'>
                 <GoPersonFill />
-                <input type="text" id="name" placeholder='Username' onChange={(e)=>{setName(e.target.value)}}/>
+                <input type="text" id="name" placeholder='Username' autocomplete="off" onChange={(e)=>{setName(e.target.value)}}/>
               </div>
               {error.name && <span className='Login_error'>{error.name}</span>}
               <div className='Login_form'>
