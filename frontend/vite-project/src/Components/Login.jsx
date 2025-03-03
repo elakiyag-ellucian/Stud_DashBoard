@@ -1,12 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import { GoPersonFill } from "react-icons/go";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [name,setName]=useState('')
   const [password,setPassword]=useState('')
   const [error,setError]=useState('')
+  const [socket, setSocket] = useState(null);
+  const navigate=useNavigate()
+
+  useEffect(() => {
+    const ws = new WebSocket('ws://localhost:4000');
+
+    ws.addEventListener('open', () => {
+        console.log('WebSocket connection established');
+    });
+
+    ws.addEventListener('message', (event) => {
+        const response = JSON.parse(event.data);
+        console.log(response.message);
+        if(response.success){
+          navigate("/Menu")
+        }
+        
+    });
+
+    setSocket(ws);
+
+    return () => ws.close();
+  }, []);
+
+
   const validate = () => {
     const newError = {}
     if(!name) {
@@ -14,7 +40,7 @@ const Login = () => {
     }
     if (!password) {
       newError.password = 'Password is required'
-    } else if (password.length < 8) {
+    } else if (password.length < 5) {
       newError.password = 'Password must be at least 8 characters'
     }
     return newError
@@ -28,6 +54,10 @@ const Login = () => {
       /* axios.post("",{name,password})
     .then(res=> console.log(res))
     .catch(err=>console.log(err)) */
+      if (name && password) {
+        const loginData = { name, password };
+        socket.send(JSON.stringify(loginData));
+      } 
     }
   }
   return (
