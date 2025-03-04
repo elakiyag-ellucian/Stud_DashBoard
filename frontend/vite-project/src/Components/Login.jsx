@@ -1,14 +1,14 @@
 import React, { useState, useEffect} from 'react';
-import axios from 'axios';
 import { GoPersonFill } from "react-icons/go";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Login = (setauth) => {
   const [name,setName]=useState('')
   const [password,setPassword]=useState('')
   const [error,setError]=useState('')
   const [socket, setSocket] = useState(null);
+  
   const navigate=useNavigate()
 
   useEffect(() => {
@@ -22,9 +22,9 @@ const Login = () => {
         const response = JSON.parse(event.data);
         console.log(response.message);
         if(response.success){
-          navigate("/Menu")
+          setauth(true)
+          navigate("/Home")
         }
-        
     });
 
     setSocket(ws);
@@ -51,9 +51,6 @@ const Login = () => {
     setError(validateError)
     if (Object.keys(validateError).length === 0) {
       console.log('Form submitted successfully!', name,password)
-      /* axios.post("",{name,password})
-    .then(res=> console.log(res))
-    .catch(err=>console.log(err)) */
       if (name && password) {
         const loginData = { name, password };
         socket.send(JSON.stringify(loginData));
@@ -62,32 +59,37 @@ const Login = () => {
   }
   return (
     <>
-    <div className='Login_main'>
-        <div className='Login_container'>
-          <div className='Login_img_container'>
-            <img src="ellucian.jpg" alt="" className='Login_img' />
-          </div>
-          <form onSubmit={handleSubmit}>
-            <div className='Login_formdiv'>
-              <h1 className='Login_heading'>Login</h1>
-              <div className='Login_form'>
-                <GoPersonFill />
-                <input type="text" id="name" placeholder='Username' autocomplete="off" onChange={(e)=>{setName(e.target.value)}}/>
-              </div>
-              {error.name && <span className='Login_error'>{error.name}</span>}
-              <div className='Login_form'>
-                <RiLockPasswordFill />
-                <input type="password" id="password" placeholder='Password' onChange={(e)=>{setPassword(e.target.value)}}/>
-              </div>
-              {error.password && <span className='Login_error'>{error.password}</span>}
-              <div>
-                <button className='Login_btn'>Submit</button>
-              </div>
+    <div className='w-full h-screen m-0 flex justify-center items-center'>
+        <div className='p-5 w-4/5   rounded-2xl flex justify-evenly items-center gap-2.5 lg:w-1/3 sm:w-3/5' style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }} >
+          <div className='w-full h-full flex flex-col justify-evenly gap-4 items-center sm:flex-row' style={{ opacity: 1 }}>
+            <div>
+              <img src="ellucian.jpg" alt="" className='h-35 md:h-auto rounded-full' />
             </div>
-          </form>
+            <form onSubmit={handleSubmit}>
+              <div className='text-center my-3.5 grid gap-3'>
+                <h1 className='text-2xl font-medium'>Login</h1>
+                <div className='border-b border-black mb-2.5 p-0 flex flex-row justify-evenly'>
+                  
+                  <span className='py-3'><GoPersonFill  /></span>
+                  <input type="text" autoComplete="off" className='w-4/5  px-4 text-lg bg-transparent outline-none border-none sm:text-base lg:text-lg' placeholder='Username' onChange={(e)=>{setName(e.target.value)}}/>
+                </div>
+                {error?.name && <span className='text-red-700'>{error?.name}</span>}
+                <div className='border-b border-black mb-2.5 p-0 flex flex-row justify-evenly'>
+                  
+                  <span className='py-3'><RiLockPasswordFill /></span>
+                  <input type="password" autoComplete="off" className='w-4/5 px-4  text-lg bg-transparent outline-none border-none sm:text-base lg:text-lg' placeholder='Password' onChange={(e)=>{setPassword(e.target.value)}}/>
+                </div>
+                {error?.password && <span className='text-red-700'>{error?.password}</span>}
+                <div>
+                  <button className='my-2.5 w-1/2 shadow-2xl border border-gray-400 text-white cursor-pointer px-4 py-2 text-lg rounded-lg sm:text-base lg:text-lg' style={{backgroundColor : '#783F8C'}}>Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
     </div>
-    </>
+</>
+
   )
 }
 
