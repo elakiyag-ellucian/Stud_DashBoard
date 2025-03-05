@@ -75,19 +75,10 @@ app.get("/auth/google/callback",
   }
 );
 
-app.get("/profile", (req, res) => {
-  if (req.user) {
-    res.send(`Welcome ${req.user.displayName}`);
-  } else {
-    res.redirect('/');
-  }
-});
-
 app.get("/logout", (req, res) => {
   req.logOut();
   res.redirect("/");
 });
-
 // New API to check authentication status
 app.get('/api/auth/check', (req, res) => {
   if (req.isAuthenticated() && req.user) {
