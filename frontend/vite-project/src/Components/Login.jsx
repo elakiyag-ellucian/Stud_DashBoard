@@ -1,63 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { GoPersonFill } from "react-icons/go";
-import { RiLockPasswordFill } from "react-icons/ri";
-import { useNavigate } from 'react-router-dom';
 
-const Login = ({ setauth }) => {
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [socket, setSocket] = useState(null);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const ws = new WebSocket('ws://localhost:4000');
-
-    ws.addEventListener('open', () => {
-      console.log('WebSocket connection established');
-    });
-
-    ws.addEventListener('message', (event) => {
-      const response = JSON.parse(event.data);
-      console.log(response.message);
-      if (response.success) {
-        setauth(true);
-        navigate("/home"); // Use lowercase path
-      }
-    });
-
-    setSocket(ws);
-
-    return () => ws.close();
-  }, [setauth, navigate]);
-
-  const validate = () => {
-    const newError = {};
-    if (!name) {
-      newError.name = 'Username is required';
-    }
-    if (!password) {
-      newError.password = 'Password is required';
-    } else if (password.length < 5) {
-      newError.password = 'Password must be at least 8 characters';
-    }
-    return newError;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const validateError = validate();
-    setError(validateError);
-    if (Object.keys(validateError).length === 0) {
-      console.log('Form submitted successfully!', name, password);
-      if (name && password) {
-        const loginData = { name, password };
-        socket.send(JSON.stringify(loginData));
-      }
-    }
-  };
-
+const Login = () => {
   return (
     <div className='w-full h-screen m-0 flex justify-center items-center '>
       <div className='p-10 w-4/5 rounded-2xl flex justify-evenly items-center gap-2.5 lg:w-1/3 sm:w-3/5' style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
