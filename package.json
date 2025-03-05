@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "back": "cd backend && node server.js",
+    "front" : "cd frontend/vite-project && npm run dev"
+    
+  },
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",

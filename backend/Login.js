@@ -4,6 +4,8 @@ const WebSocket = require('ws');
 const oracledb = require('oracledb');
 const cors = require('cors');
 require('dotenv').config();
+console.log(process.env.DB_USER);
+console.log(process.env.DB_PASSWORD);
 
 const dbConfig = {
   user: process.env.DB_USER,
