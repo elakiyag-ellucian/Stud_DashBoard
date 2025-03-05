@@ -59,18 +59,30 @@ const Login = ({ setauth }) => {
   };
 
   return (
-    <div className='w-full h-screen m-0 flex justify-center items-center '>
-      <div className='p-10 w-4/5 rounded-2xl flex justify-evenly items-center gap-2.5 lg:w-1/3 sm:w-3/5' style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
+    <div className='w-full h-screen m-0 flex justify-center items-center'>
+      <div className='p-5 w-4/5 rounded-2xl flex justify-evenly items-center gap-2.5 lg:w-1/3 sm:w-3/5' style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
         <div className='w-full h-full flex flex-col justify-evenly gap-4 items-center sm:flex-row' style={{ opacity: 1 }}>
           <div>
             <img src="ellucian.jpg" alt="" className='h-35 md:h-auto rounded-full' />
           </div>
-          
-          <div className='text-center'>
-            <h1 className='text-3xl text-center font-medium'>Welcome to RegiTrack Dashboard</h1>
-            <h4 className='mt-4 text-lg text-center font-medium'>To Proceed</h4>
-            <button className='my-2.5 w-1/2 shadow-2xl border text-center items-center border-gray-400 text-white cursor-pointer px-4 py-2 text-lg rounded-lg sm:text-base lg:text-lg' style={{ backgroundColor: '#783F8C' }}> <a href="http://localhost:4001/auth/google">Login with Google</a></button>
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div className='text-center my-3.5 grid gap-3'>
+              <h1 className='text-2xl font-medium'>Login</h1>
+              <div className='border-b border-black mb-2.5 p-0 flex flex-row justify-evenly'>
+                <span className='py-3'><GoPersonFill /></span>
+                <input type="text" autoComplete="off" className='w-4/5 px-4 text-lg bg-transparent outline-none border-none sm:text-base lg:text-lg' placeholder='Username' onChange={(e) => { setName(e.target.value) }} />
+              </div>
+              {error?.name && <span className='text-red-700'>{error?.name}</span>}
+              <div className='border-b border-black mb-2.5 p-0 flex flex-row justify-evenly'>
+                <span className='py-3'><RiLockPasswordFill /></span>
+                <input type="password" autoComplete="off" className='w-4/5 px-4 text-lg bg-transparent outline-none border-none sm:text-base lg:text-lg' placeholder='Password' onChange={(e) => { setPassword(e.target.value) }} />
+              </div>
+              {error?.password && <span className='text-red-700'>{error?.password}</span>}
+              <div>
+                <button className='my-2.5 w-1/2 shadow-2xl border border-gray-400 text-white cursor-pointer px-4 py-2 text-lg rounded-lg sm:text-base lg:text-lg' style={{ backgroundColor: '#783F8C' }}>Submit</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 import Login from './Components/Login.jsx';
 import Home from './Components/Home.jsx';
@@ -8,20 +8,16 @@ import Trends from './Components/Trends.jsx';
 import Reports from './Components/Reports.jsx';
 import NavBar from './Components/NavBar.jsx';
 
-import { HiMenu } from "react-icons/hi";
+import { RiDashboard2Fill } from "react-icons/ri";
 
 const App = () => {
-  const [auth, setAuth] = useState(() => {
-    // Initialize auth state from local storage
-    const savedAuth = localStorage.getItem('auth');
-    return savedAuth ? JSON.parse(savedAuth) : false;
-  });
-
+  const [auth, setAuth] = useState(false);
   useEffect(() => {
-    // Persist auth state to local storage whenever it changes
-    localStorage.setItem('auth', JSON.stringify(auth));
-  }, [auth]);
-
+    fetch('http://localhost:4001/api/auth/check', { credentials: 'include' })
+      .then(response => response.json())
+      .then(data => setAuth(data.authenticated))
+      .catch(error => console.error('Auth check failed:', error));
+  }, []);
   return (
     <div
       style={{
@@ -33,37 +29,38 @@ const App = () => {
       }}
     >
       <Router>
-        {auth && (
+        {auth ? (
           <>
             <div
-              className='pl-10 p-2 flex items-center justify-between'
+              className='pl-10 p-2 flex items-center justify-between shadow-md'
               style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}
             >
-              <div className='cursor-pointer pl-5'><HiMenu /></div>
-              <div className='pl-150 text-lg font-semibold'>RegiTrack Dashboard</div>
-              <div className='pl-120'>
+              <div className='cursor-pointer pl-5'><RiDashboard2Fill className='text-3xl'/></div>
+              <div className='text-lg font-semibold justify-self-start'>RegiTrack Dashboard</div>
+              <div >
                 <img src='ellucian.jpg' alt='' className='w-1/5 rounded-full justify-self-end ' />
               </div>
             </div>
 
             <div className='pb-20 mt-10 flex flex-row h-[calc(100vh-48px)]'>
-              <div className='h-full'>
+              <div className='h-full shadow-2xl'>
                 <NavBar />
               </div>
-              <div className='flex-1 overflow-auto ml-10 mr-10' style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}>
+              <div className='flex-1 overflow-auto ml-10 mr-10 shadow-2xl' style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}>
                 <Routes>
                   <Route path='/home' element={<Home />} />
                   <Route path='/insights' element={<Insights />} />
                   <Route path='/trends' element={<Trends />} />
                   <Route path='/reports' element={<Reports />} />
+                  <Route path='*' element={<Navigate to="/home" />} />
                 </Routes>
               </div>
             </div>
           </>
-        )}
-        {!auth && (
+        ) : (
           <Routes>
             <Route path='/' element={<Login setauth={setAuth} />} />
+            <Route path='*' element={<Navigate to="/" />} />
           </Routes>
         )}
       </Router>
