@@ -41,7 +41,7 @@ const navbar=[
   }
 ]
 
-const NavBar = () => {
+const NavBar = ({user}) => {
     const navigate = useNavigate();
     const handleNavigate = (link) => {
       console.log(link)
@@ -72,6 +72,12 @@ const NavBar = () => {
                 }
                 
               </ul>
+              <div className='flex justify-center items-center flex-col p-5'>
+                <button className='border-2 border-black text-xl p-3 rounded-full cursor-pointer text-white justify-items-end mt-50' style={{backgroundColor:"#3b4453", width: '50px', height: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                {user ? user.charAt(0) : 'U'}
+                </button>
+                <h3>------</h3>
+              </div>
           </div>
       </>
     )

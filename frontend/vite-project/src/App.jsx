@@ -12,10 +12,13 @@ import { RiDashboard2Fill } from "react-icons/ri";
 
 const App = () => {
   const [auth, setAuth] = useState(false);
+  const [user,setUser] = useState(null);
+  console.log(user)
   useEffect(() => {
     fetch('http://localhost:4001/api/auth/check', { credentials: 'include' })
       .then(response => response.json())
       .then(data => setAuth(data.authenticated))
+      .then(data => setUser(data.user))
       .catch(error => console.error('Auth check failed:', error));
   }, []);
   return (
@@ -25,26 +28,27 @@ const App = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         height: '100vh',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        fontFamily:'"Trebuchet MS", Helvetica, sans-serif'
       }}
     >
       <Router>
         {auth ? (
           <>
             <div
-              className='pl-10 p-2 flex items-center justify-between shadow-md'
+              className='pl-10 p-2 flex items-center shadow-md'
               style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}
             >
               <div className='cursor-pointer pl-5'><RiDashboard2Fill className='text-3xl'/></div>
-              <div className='text-lg font-semibold justify-self-start'>RegiTrack Dashboard</div>
-              <div >
-                <img src='ellucian.jpg' alt='' className='w-1/5 rounded-full justify-self-end ' />
+              <div className='text-lg pl-8 font-semibold'>RegiTrack Dashboard</div>
+              <div className='ml-auto pr-10'>
+                <img src='ellucian.jpg' alt='' className='w-12 h-12 rounded-full' />
               </div>
             </div>
 
             <div className='pb-20 mt-10 flex flex-row h-[calc(100vh-48px)]'>
               <div className='h-full shadow-2xl'>
-                <NavBar />
+                <NavBar user={user}/>
               </div>
               <div className='flex-1 overflow-auto ml-10 mr-10 shadow-2xl' style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}>
                 <Routes>
