@@ -1,17 +1,19 @@
 {
   "scripts": {
-    "back": "cd backend && node server.js",
-    "front" : "cd frontend/vite-project && npm run dev"
-    
+    "back": "cd backend && node OAuth2.js",
+    "front": "cd frontend/vite-project && npm run dev"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "chart.js": "^4.4.8",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "faker": "^6.6.6",
     "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "oracledb": "^6.8.0",
+    "react-chartjs-2": "^5.3.0",
     "ws": "^8.18.1"
   }
 }
