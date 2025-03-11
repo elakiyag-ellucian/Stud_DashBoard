@@ -12,7 +12,7 @@ const Login = () => {
           <div className='text-center'>
             <h1 className='text-3xl text-center font-medium'>Welcome to RegiTrack Dashboard</h1>
             <h4 className='mt-4 text-lg text-center font-medium'>To Proceed</h4>
-            <button className='my-2.5 w-1/2 shadow-2xl border text-center items-center border-gray-400 text-white cursor-pointer px-4 py-2 text-lg rounded-lg sm:text-base lg:text-lg' style={{ backgroundColor: '#783F8C' }}> <a href="http://localhost:4001/auth/google">Login with Google</a></button>
+            <button className='my-2.5 w-1/ shadow-2xl border text-center items-center border-gray-400 text-white cursor-pointer px-4 py-2 text-lg rounded-lg sm:text-base lg:text-lg' style={{ backgroundColor: '#783F8C' }}> <a href="http://localhost:4001/auth/google">Login with Google</a></button>
           </div>
         </div>
       </div>
