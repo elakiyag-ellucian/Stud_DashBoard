@@ -6,6 +6,7 @@ import { PiStudentFill  } from "react-icons/pi";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { MdInsights  , MdOutlineGroups} from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
+import { MdAppRegistration } from "react-icons/md";
 
 const navbar=[
   
@@ -13,6 +14,11 @@ const navbar=[
     nav:"Home",
     icon:<TiHome />,
     link: "/home"
+  },
+  {
+    nav:"HeadCount",
+    icon:<MdAppRegistration />,
+    link: "/count"
   },
   {
     nav:"Insights",

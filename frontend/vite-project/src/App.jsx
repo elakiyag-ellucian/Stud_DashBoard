@@ -3,12 +3,14 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 
 import Login from './Components/Login.jsx';
 import Home from './Components/Home.jsx';
+import HeadCount from './Components/HeadCount.jsx';
 import Insights from './Components/Insights.jsx';
 import Trends from './Components/Trends.jsx';
 import Reports from './Components/Reports.jsx';
 import NavBar from './Components/NavBar.jsx';
 
 import { RiDashboard2Fill } from "react-icons/ri";
+
 
 const App = () => {
   const [auth, setAuth] = useState(false);
@@ -53,6 +55,7 @@ const App = () => {
               <div className='flex-1 overflow-auto ml-10 mr-10 shadow-2xl' style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}>
                 <Routes>
                   <Route path='/home' element={<Home />} />
+                 {/*  <Route path='/count' element={<HeadCount />} /> */}
                   <Route path='/insights' element={<Insights />} />
                   <Route path='/trends' element={<Trends />} />
                   <Route path='/reports' element={<Reports />} />
