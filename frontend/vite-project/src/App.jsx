@@ -55,7 +55,7 @@ const App = () => {
               <div className='flex-1 overflow-auto ml-10 mr-10 shadow-2xl' style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}>
                 <Routes>
                   <Route path='/home' element={<Home />} />
-                 {/*  <Route path='/count' element={<HeadCount />} /> */}
+                  <Route path='/count' element={<HeadCount />} />
                   <Route path='/insights' element={<Insights />} />
                   <Route path='/trends' element={<Trends />} />
                   <Route path='/reports' element={<Reports />} />
